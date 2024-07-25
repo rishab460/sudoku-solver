@@ -1,7 +1,7 @@
 // Constants for difficulty levels (number of empty cells)
 const EASY = 40;
 const MEDIUM = 50;
-const HARD = 60;
+const HARD = 55;
 
 // Initialize Sudoku grid
 const sudokuGrid = document.getElementById('sudoku-grid');
