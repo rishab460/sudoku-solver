@@ -25,6 +25,13 @@ function createGrid() {
         input.setAttribute('max', '9');
         cell.appendChild(input);
 
+        // Restrict input to numbers between 1 and 9
+        input.addEventListener('input', (e) => {
+            if (e.target.value < 1 || e.target.value > 9) {
+                e.target.value = '';
+            }
+        });
+
         sudokuGrid.appendChild(cell);
     }
 }
@@ -69,8 +76,8 @@ function generateCompleteSudoku() {
         for (let i = 0; i < 9; i++) {
             do {
                 num = Math.floor(Math.random() * 9) + 1;
-            } while (!isSafe(board, index + i % 3 + Math.floor(i / 3) * 9, num));
-            board[index + i % 3 + Math.floor(i / 3) * 9] = num;
+            } while (!isSafe(board, index + (i % 3) + Math.floor(i / 3) * 9, num));
+            board[index + (i % 3) + Math.floor(i / 3) * 9] = num;
         }
     };
 
@@ -222,6 +229,11 @@ function solve(board, index) {
 function checkSolution() {
     const cells = document.querySelectorAll('.cell input');
     const userSolution = Array.from(cells).map(cell => parseInt(cell.value) || 0);
+
+    if (originalPuzzle.length === 0) {
+        alert('Please generate a puzzle first!');
+        return;
+    }
 
     const isCorrect = userSolution.every((num, index) => num === correctSolution[index]);
 
