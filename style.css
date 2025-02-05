@@ -63,6 +63,10 @@ h1 {
     text-align: center;
 }
 
+.message {
+    font-size: 100px;
+}
+
 .sudoku-grid {
     display: grid;
     grid-template-columns: repeat(9, 40px);

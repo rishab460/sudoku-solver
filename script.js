@@ -12,6 +12,14 @@ let correctSolution = [];
 let timer;
 let timerInterval;
 
+// 
+function displayGameResult(text) {
+    const message = document.querySelector(".message");
+    message.textContent = text;
+    const grid = document.querySelector(".sudoku-grid");
+    grid.style.display = "none";
+}
+
 // Create a 9x9 Sudoku grid
 function createGrid() {
     sudokuGrid.innerHTML = '';
@@ -195,7 +203,7 @@ function solveSudoku() {
             cells[index].value = num;
         });
     } else {
-        alert('No solution found!');
+        displayGameResult('No solution found!');
     }
 }
 
@@ -231,7 +239,7 @@ function checkSolution() {
     const userSolution = Array.from(cells).map(cell => parseInt(cell.value) || 0);
 
     if (originalPuzzle.length === 0) {
-        alert('Please generate a puzzle first!');
+        displayGameResult('Please generate a puzzle first!');
         return;
     }
 
@@ -242,9 +250,9 @@ function checkSolution() {
 
     if (isCorrect && !hasEmptyCells) {
         clearInterval(timerInterval); // Stop the timer if correct
-        alert('You won!');
+        displayGameResult('You won!');
     } else {
-        alert('You lost!');
+        displayGameResult('You lost!');
     }
 }
 
@@ -260,7 +268,7 @@ function startTimer(duration) {
 
         if (timeRemaining <= 0) {
             clearInterval(timerInterval);
-            alert('Time is up! You lost!');
+            displayGameResult('Time is up! You lost!');
         }
     }, 1000);
 }
@@ -273,9 +281,9 @@ function formatTime(seconds) {
 }
 
 // Event listeners for buttons
-document.getElementById('easy').addEventListener('click', () => generatePuzzle(EASY));
-document.getElementById('medium').addEventListener('click', () => generatePuzzle(MEDIUM));
-document.getElementById('hard').addEventListener('click', () => generatePuzzle(HARD));
+document.getElementById('easy').addEventListener('click', () => {generatePuzzle(EASY); document.querySelector(".sudoku-grid").style.display = "grid"; document.querySelector(".message").textContent = "";});
+document.getElementById('medium').addEventListener('click', () => {generatePuzzle(MEDIUM); document.querySelector(".sudoku-grid").style.display = "grid"; document.querySelector(".message").textContent = "";});
+document.getElementById('hard').addEventListener('click', () => {generatePuzzle(HARD); document.querySelector(".sudoku-grid").style.display = "grid"; document.querySelector(".message").textContent = "";});
 document.getElementById('solve').addEventListener('click', solveSudoku);
 document.getElementById('checkSolution').addEventListener('click', checkSolution);
 document.getElementById('howToPlay').addEventListener('click', () => {
